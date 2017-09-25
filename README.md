@@ -25,6 +25,10 @@
   <h2>Padding</h2>
   <li><a href="https://www.quora.com/What-are-the-roles-of-stride-and-padding-in-a-convolutional-neural-network">Padding</a></li>
   <li><a href="https://stats.stackexchange.com/questions/246512/convolutional-layers-to-pad-or-not-to-pad">Significance </a>of padding</li>
+  
+  <h2>Back Propogation and Gradient Descent</h2>
+  <li>How to <a href="https://www.youtube.com/watch?v=QWfmCyLEQ8U">Back propogate,gradient descent</a> explained</li>
+  <li>Strategies to compute <a href="http://cs231n.github.io/optimization-1/"> gradient</a></li>
 
 
 </ul>
