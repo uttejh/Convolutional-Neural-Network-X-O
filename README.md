@@ -16,5 +16,15 @@
   <h2>Bias</h2>
   <li><a href="https://www.quora.com/What-is-bias-in-artificial-neural-network">quora</a></li>
   <li><a href="https://stats.stackexchange.com/questions/185911/why-are-bias-nodes-used-in-neural-networks">stack Exchange</a></li>
+  
+  <h2>Filters</h2>
+  <li><a href="https://stats.stackexchange.com/questions/133074/how-to-determine-the-number-of-convolutional-operators-in-cnn">Number of filters</a></li>
+  <li><a href="https://stats.stackexchange.com/questions/193793/in-convolutional-neural-networks-cnn-how-we-can-decide-number-of-kernels-betw/193953#193953">No. of filters</a></li>
+  <li><a href="https://www.quora.com/What-does-the-number-of-filters-in-a-convolution-layer-convey-How-does-this-number-effect-the-performance-or-quality-of-the-architecture">Significance </a>of number of Filters</a></li>
+  
+  <h2>Padding</h2>
+  <li><a href="https://www.quora.com/What-are-the-roles-of-stride-and-padding-in-a-convolutional-neural-network">Padding</a></li>
+  <li><a href="https://stats.stackexchange.com/questions/246512/convolutional-layers-to-pad-or-not-to-pad">Significance </a>of padding</li>
+
 
 </ul>
