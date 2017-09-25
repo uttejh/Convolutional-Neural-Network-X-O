@@ -28,7 +28,7 @@
   
   <h2>Back Propogation and Gradient Descent</h2>
   <li>How to <a href="https://www.youtube.com/watch?v=QWfmCyLEQ8U">Back propogate,gradient descent</a> explained</li>
-  <li>Strategies to compute <a href="http://cs231n.github.io/optimization-1/"> gradient</a></li>
+  <li>Strategies to compute <a href="http://cs231n.github.io/optimization-1/"> gradient and loss function</a></li>
 
 
 </ul>
