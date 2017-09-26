@@ -31,7 +31,7 @@
   <li>Strategies to compute <a href="http://cs231n.github.io/optimization-1/"> gradient and loss function</a></li>
   
   <h2>Training</h2>
-  <li><a href="https://stats.stackexchange.com/questions/269525/how-to-train-a-cnn-with-multiple-heads">How to train Conv layers</a></li>
-
+  <li><a href="https://stats.stackexchange.com/questions/269525/how-to-train-a-cnn-with-multiple-heads">How to train Conv layers</a>       </li>
+  <li><a href="https://www.quora.com/How-can-I-train-a-CNN-with-insufficient-and-not-so-good-data">Training</a> with insufficient data</li>
 
 </ul>
