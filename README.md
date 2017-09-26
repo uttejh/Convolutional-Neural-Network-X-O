@@ -33,6 +33,8 @@
   <h2>Training</h2>
   <li><a href="https://stats.stackexchange.com/questions/269525/how-to-train-a-cnn-with-multiple-heads">How to train Conv layers</a>       </li>
   <li><a href="https://www.quora.com/How-can-I-train-a-CNN-with-insufficient-and-not-so-good-data">Training</a> with insufficient data</li>
+  <h2>ReLu activation function</h2>
+  <li><a href="https://stackoverflow.com/questions/32546020/neural-network-backpropagation-with-relu">Derivative(Second Answer)</a></li>
   
   <h2>CUDA</h2>
   <li><a href="https://classroom.udacity.com/courses/cs344/lessons/55120467/concepts/658304810923">Udacity </a>Tutorials</a></li?
