@@ -41,7 +41,7 @@ Pooling(x)
 FullyConnectedLayer(x)
 
 #error
-deltaW = label(0/1) - (???)
+deltaW = [label(0/1) - (???)]*gradient
 Backprop()
 W = w + (deltaW*alpha)
 
