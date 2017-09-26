@@ -1,6 +1,7 @@
+#forward pass
 def relu_activation_fn
 
-def gradient
+def local_gradient
 
 # Hyper Parameters
 
@@ -19,7 +20,7 @@ def Pooling
 
 def FullyConnectedLayer
 
-def Backprop
+
 
 x = input image
 
@@ -48,6 +49,11 @@ deltaW_FOR_X = [1  - output1]
 deltaW_FOR_O = [0  - output2]
 # 0 is label for O,
 # Output2 is the output after dot product of neurons in FullyConnected layer and respective synapes
+
+#backward pass
+def gradient
+
+def Backprop
 
 # Total error
 deltaW = [deltaW_FOR_X + mod(deltaW_FOR_O)]*gradient
