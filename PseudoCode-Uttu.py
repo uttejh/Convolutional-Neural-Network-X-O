@@ -41,10 +41,18 @@ reLu(x)
 Pooling(x)
 FullyConnectedLayer(x)
 
-#error
-deltaW = [label(0/1) - (???)]*gradient
+# error at 2 output neurons
+deltaW_FOR_X = [1  - output1] 
+# 1 is label for X,
+# Output1 is the output after dot product of neurons in FullyConnected layer and respective synapes
+deltaW_FOR_O = [0  - output2]
+# 0 is label for O,
+# Output2 is the output after dot product of neurons in FullyConnected layer and respective synapes
+
+# Total error
+deltaW = [deltaW_FOR_X + mod(deltaW_FOR_O)]*gradient
 Backprop()
-W = w + (deltaW*alpha)
+W = W + (deltaW*alpha)
 
 #Testing
 # Show reduction in  error while providing the label as we did in RNN
