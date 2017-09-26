@@ -12,7 +12,8 @@ def Padding
 # Procedure Functions
 def Convolution
 
-def ReLu
+# This is same as relu activation_fn
+# def ReLu
 
 def Pooling
 
