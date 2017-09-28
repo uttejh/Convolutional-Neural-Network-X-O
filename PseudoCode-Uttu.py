@@ -43,11 +43,11 @@ Pooling(x)
 FullyConnectedLayer(x)
 
 # error at 2 output neurons
-deltaW_FOR_X = [1  - output1] 
-# 1 is label for X,
+deltaW_FOR_X = [0  - output1] 
+# 0 is label for X,
 # Output1 is the output after dot product of neurons in FullyConnected layer and respective synapes
-deltaW_FOR_O = [0  - output2]
-# 0 is label for O,
+deltaW_FOR_O = [1  - output2]
+# 1 is label for O,
 # Output2 is the output after dot product of neurons in FullyConnected layer and respective synapes
 
 #backward pass
@@ -56,7 +56,7 @@ def gradient
 def Backprop
 
 # Total error
-deltaW = [deltaW_FOR_X + mod(deltaW_FOR_O)]*gradient
+deltaW = [mod(deltaW_FOR_X) + mod(deltaW_FOR_O)]*gradient
 Backprop()
 W = W + (deltaW*alpha)
 

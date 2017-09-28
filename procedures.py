@@ -23,4 +23,10 @@ class Procedures:
 		newarr = numpy.random.choice([1,-1],(3,3))
 		return newarr
 
+	@staticmethod
+	def reLu(x):
+		return x.clip(min=0)
 
+	@staticmethod
+	def pooling(x):
+		pass
