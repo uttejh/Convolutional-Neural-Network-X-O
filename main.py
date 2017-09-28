@@ -9,7 +9,7 @@ import numpy
 # Takes image as input and coverts it into required input of pixels (either 1 or -1)
 def ProcessImage():
 	#B/W image , called as monogram not grayscale (i did not choose grayscale)
-	image = Image.open("img/conv1.jpg")
+	image = Image.open("conv1.jpg")
 	# Converts image into array of pixels
 	arr = array(image)
 
