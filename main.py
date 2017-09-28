@@ -36,5 +36,6 @@ FilterTwo = p.InitFilter()
 FilterThree = p.InitFilter()
 FilterFour = p.InitFilter()
 
-
+# input
+input_data = ProcessImage()
 

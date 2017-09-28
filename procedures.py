@@ -5,13 +5,16 @@ class Procedures:
 		self.bla = []
 
 	# @staticmethod
+	# Adds a padding of 2 all around the matrix
 	def padding(self, x):
+		x = numpy.pad(x,(2,2), 'constant')
 		return x
 
 	# @staticmethod
 	def convolution(self, x):
 		convoluted_array = []
-		self.padding(x)
+		z = self.padding(x)
+		return z
 	
 	# Creates an array with random values of 1,-1 in a 3*3 matrix
 	@staticmethod
