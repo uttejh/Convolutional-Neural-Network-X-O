@@ -15,6 +15,10 @@ class Procedures:
 		convoluted_array = []
 		z = self.padding(x)
 		return z
+		for img_patch in z:
+			w = numpy.dot(z,newarr)
+			v = (numpy.sum(w,axis=None))/numpy.prod(newarr.size)
+			retuern v
 	
 	# Creates an array with random values of 1,-1 in a 3*3 matrix
 	@staticmethod
@@ -29,4 +33,9 @@ class Procedures:
 
 	@staticmethod
 	def pooling(x):
-		pass
+		stride = 2
+		window_size=[2,2]
+		for window_size in reLu(x):
+			numpy.matrix.max()
+			window_size + stride #dont think thats how its done..
+			
