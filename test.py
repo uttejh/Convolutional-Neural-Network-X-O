@@ -1,10 +1,10 @@
-import numpy as np
+from numpy import array
+from PIL import Image
+def im():
+	image = Image.open("conv1.jpg")
+	arr = array(image)
+	# print(len(arr))
+	return len(arr),arr[0]
 
-x = np.ones((3,3))
-it = np.nditer(x, flags=['multi_index'], op_flags=['readwrite'])
-
-while not it.finished:
-	q = it.multi_index
-	print(q)
-	print(x[q])
-	it.iternext()
+z = im()
+print(z[0])

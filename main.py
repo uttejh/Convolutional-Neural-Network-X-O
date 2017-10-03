@@ -17,9 +17,9 @@ def gradient(x):
 def error_filter(filt, error):
 	err = []
 	length = len(filt)
-	size = length*length
+	# size = length*length
 
-	for i in range(size):
+	for i in range(length):
 		for j in range(length):
 			e = error*gradient(filt[i][j])
 			err.append(e)
@@ -30,11 +30,12 @@ def error_filter(filt, error):
 
 # Takes image as input and coverts it into required input of pixels (either 1 or -1)
 def ProcessImage(numb):
-	im = 'conv'+str(numb)
+	im = 'conv'+str(numb+1)+'.jpg'
 	#B/W image , called as monogram not grayscale (i did not choose grayscale)
 	image = Image.open(im)
 	# Converts image into array of pixels
 	arr = array(image)
+	# sizeimg = len(arr)
 	# label = x or o
 	# Pre-processing
 	# converts 255 (white) to -1 and 0 (black) to 1
@@ -60,7 +61,8 @@ num_out_featuremaps = 4
 filter_height = 3
 filter_width = 3
 pooling_size = 4
-numOfWeights = len(SecondPooling)
+# numOfWeights = len(SecondPooling)
+numOfWeights = 1568
 
 fan_in = (num_inp_featuremaps*filter_height*filter_width)
 fan_out = (num_out_featuremaps*filter_height*filter_width)/pooling_size
@@ -70,7 +72,7 @@ w_bound = numpy.sqrt(6./(fan_in+fan_out))
 w_fc = numpy.random.uniform(-w_bound,w_bound,(numOfWeights,2))
 
 # Initialising weight update array
-deltaW_fc = numpy.zeros_like(w)
+deltaW_fc = numpy.zeros_like(w_fc)
 
 
 p = Procedures()
@@ -80,18 +82,22 @@ FilterOne = p.InitFilter()
 FilterTwo = p.InitFilter()
 
 # Creating 4 filters for Second Convolution layer 
-(No. of filters needs to increased inorder to focus on more complex features)
+# (No. of filters needs to increased inorder to focus on more complex features)
 FilterThree = p.InitFilter()
 FilterFour = p.InitFilter()
 FilterFive = p.InitFilter()
 FilterSix = p.InitFilter()
 
-for iterat in range(10):
+for iterat in range(1):
 	# Calculates execution time
 	start = time.clock()
 
 	# input
 	input_data = ProcessImage(iterat)
+	# input_data = process[0]
+	# imgsize = process[1]
+
+
 	if (iterat%2) == 0:
 		label = 1
 		ans = 'O'
@@ -101,27 +107,54 @@ for iterat in range(10):
 
 	# First Iteration
 	# Convloution
-	FirstConv = p.convolution(input_data)
+	FirstConv1 = p.convolution(input_data, FilterOne)
+	FirstConv2 = p.convolution(input_data, FilterTwo)
 
 	# ReLu
-	FirstReLu = p.reLu(FirstConv)
+	FirstReLu1 = p.reLu(FirstConv1)
+	FirstReLu2 = p.reLu(FirstConv2)
 
 	# Pooling
-	FirstPooling = p.pooling(FirstReLu)
+	FirstPooling1 = p.pooling(FirstReLu1)
+	FirstPooling2 = p.pooling(FirstReLu2)
 
 
 	# Second Iteration
 	# Convloution
-	SecondConv = p.convolution(FirstPooling)
+	SecondConv11 = p.convolution(FirstPooling1, FilterThree)
+	SecondConv12 = p.convolution(FirstPooling1, FilterFour)
+	SecondConv13 = p.convolution(FirstPooling1, FilterFive)
+	SecondConv14 = p.convolution(FirstPooling1, FilterSix)
+	SecondConv21 = p.convolution(FirstPooling2, FilterThree)
+	SecondConv22 = p.convolution(FirstPooling2, FilterFour)
+	SecondConv23 = p.convolution(FirstPooling2, FilterFive)
+	SecondConv24 = p.convolution(FirstPooling2, FilterSix)
+
 
 	# ReLu
-	SecondReLu = p.reLu(SecondConv)
+	SecondReLu11 = p.reLu(SecondConv11)
+	SecondReLu12 = p.reLu(SecondConv12)
+	SecondReLu13 = p.reLu(SecondConv13)
+	SecondReLu14 = p.reLu(SecondConv14)
+	SecondReLu21 = p.reLu(SecondConv21)
+	SecondReLu22 = p.reLu(SecondConv22)
+	SecondReLu23 = p.reLu(SecondConv23)
+	SecondReLu24 = p.reLu(SecondConv24)
 
 	# Pooling
-	SecondPooling = p.pooling(SecondReLu)
+	SecondPooling11 = p.pooling(SecondReLu11)
+	SecondPooling12 = p.pooling(SecondReLu12)
+	SecondPooling13 = p.pooling(SecondReLu13)
+	SecondPooling14 = p.pooling(SecondReLu14)
+	SecondPooling21 = p.pooling(SecondReLu21)
+	SecondPooling22 = p.pooling(SecondReLu22)
+	SecondPooling23 = p.pooling(SecondReLu23)
+	SecondPooling24 = p.pooling(SecondReLu24)
+
+	temp = numpy.concatenate(SecondPooling11, SecondPooling12, SecondPooling13, SecondPooling14, SecondPooling21, SecondPooling22, SecondPooling23, SecondPooling24)
 
 	# Fully Connected Layer
-	# FC = 1d array of SecondPooling
+	FC = temp.flatten()
 
 	output = []
 
@@ -165,6 +198,6 @@ for iterat in range(10):
 	print('-----------------------------------------------------------------')
 	print('X: ' + str(numpy.absolute(output[0]*100)) + '%\t\t| ERR: ' + str(absErrX*100))
 	print('O: ' + str(100 -numpy.absolute(output[1]*100)) + '%\t\t| ERR: ' + str(absErrO*100))
-	print('Total Error: ' + error)
+	print('Total Error: ' + str(error))
 	print('Time Taken: ' + str(tt))
 	print('-----------------------------------------------------------------')
