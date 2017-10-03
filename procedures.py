@@ -13,19 +13,26 @@ class Procedures:
 	# @staticmethod
 	def convolution(self, x , filt):
 		convoluted_array = []
-		s = len(filt)
+		lenf = len(filt)
 		z = self.padding(x)
-		size = len(z)
-		end = size-2
-		for i in range(end):
+		s = z.shape
+		# size = len(z)
+		endx = s[0] - 2
+		endy = s[1] - 2
+		# print(z.shape)
+		# print(endx)
+		for i in range(endx):
 			conv = []
-			for j in range(end):
+			for j in range(endy):
 				c = 0.0
 				con = 0
-				for k in range(s):
-					for l in range(s):
+				for k in range(lenf):
+					for l in range(lenf):
+						a = 0
 						# c += numpy.prod(z[i][j]*filt[k][l])
-						c = numpy.sum([c, numpy.prod(z[i][j]*filt[k][l])])
+						a = z[i][j]*filt[k][l]
+						# print(str(i) + " " + str(j))
+						c = numpy.sum([c, a])
 				con = float(c)/9
 				conv.append(con)
 			convoluted_array.append(conv)
@@ -39,7 +46,7 @@ class Procedures:
 	@staticmethod
 	def InitFilter():
 		newarr = []
-		newarr = numpy.random.choice([1,-1],(3,3))
+		newarr = numpy.random.choice([1.,-1.],(3,3))
 		return newarr
 
 	@staticmethod
@@ -49,14 +56,17 @@ class Procedures:
 
 	@staticmethod
 	def pooling(x):
-		size = len(x)
-		end = size-1
+		# size = len(x)
+		s = x.shape
+		endx = s[0] - 1
+		endy = s[1] - 1
+		# end = size-1
 		# maxy = []
 		pool=[]
-		for i in range(end):
-			pooler = []
+		for i in range(endx):
 			if (i%2) == 0:
-				for j in range(end):
+				pooler = []
+				for j in range(endy):
 					if (j%2) == 0:
 						m = 0 
 						m = max(x[i][j],x[i][j+1],x[i+1][j+1],x[i+1][j+1])

@@ -15,16 +15,18 @@ def gradient(x):
 		return 0 
 
 def error_filter(filt, error):
-	err = []
+	errr = []
 	length = len(filt)
 	# size = length*length
 
 	for i in range(length):
+		err = []
 		for j in range(length):
 			e = error*gradient(filt[i][j])
 			err.append(e)
+		errr.append(err)
 
-	return err  
+	return errr  
 
 
 
@@ -62,17 +64,6 @@ filter_height = 3
 filter_width = 3
 pooling_size = 4
 # numOfWeights = len(SecondPooling)
-numOfWeights = 1568
-
-fan_in = (num_inp_featuremaps*filter_height*filter_width)
-fan_out = (num_out_featuremaps*filter_height*filter_width)/pooling_size
-
-w_bound = numpy.sqrt(6./(fan_in+fan_out))
-# Weights creates a matrix of numOfWeights*2 size
-w_fc = numpy.random.uniform(-w_bound,w_bound,(numOfWeights,2))
-
-# Initialising weight update array
-deltaW_fc = numpy.zeros_like(w_fc)
 
 
 p = Procedures()
@@ -96,7 +87,6 @@ for iterat in range(1):
 	input_data = ProcessImage(iterat)
 	# input_data = process[0]
 	# imgsize = process[1]
-
 
 	if (iterat%2) == 0:
 		label = 1
@@ -151,15 +141,29 @@ for iterat in range(1):
 	SecondPooling23 = p.pooling(SecondReLu23)
 	SecondPooling24 = p.pooling(SecondReLu24)
 
-	temp = numpy.concatenate(SecondPooling11, SecondPooling12, SecondPooling13, SecondPooling14, SecondPooling21, SecondPooling22, SecondPooling23, SecondPooling24)
+	temp = numpy.concatenate((SecondPooling11, SecondPooling12, SecondPooling13, SecondPooling14, SecondPooling21, SecondPooling22, SecondPooling23, SecondPooling24))
 
 	# Fully Connected Layer
 	FC = temp.flatten()
 
 	output = []
 
+	if (iterat) == 0:
+		numOfWeights = len(FC)
+
+		fan_in = (num_inp_featuremaps*filter_height*filter_width)
+		fan_out = (num_out_featuremaps*filter_height*filter_width)/pooling_size
+
+		w_bound = numpy.sqrt(6./(fan_in+fan_out))
+		# Weights creates a matrix of numOfWeights*2 size
+		w_fc = numpy.random.uniform(-w_bound,w_bound,(numOfWeights,2))
+
+		# Initialising weight update array
+		deltaW_fc = numpy.zeros_like(w_fc)
+
+
 	# Dot product b/w FullyConnected Layer and Weigths (1*n)(n*2) = (1*2)
-	output = numpy.dot(FC,W)
+	output = numpy.dot(FC,w_fc)
 
 	# Error from X and O
 	error_X = 0 - output[0]
@@ -172,8 +176,10 @@ for iterat in range(1):
 	error = ( absErrX + absErrO)
 
 	deltaW_fc = numpy.dot(FC, error)
+	dw = deltaW_fc*alpha
+	dw = dw.reshape(dw.size,1)
 	# updating the weight
-	w_fc = w_fc + (deltaW_fc*alpha)
+	w_fc = w_fc + dw
 
 
 	FilterOne_update = numpy.dot(FilterOne, error_filter(FilterOne, error)) 
@@ -196,8 +202,9 @@ for iterat in range(1):
 	# Results
 	print("Prediction: \t\t| Error: \tfor Image: "+ans)
 	print('-----------------------------------------------------------------')
-	print('X: ' + str(numpy.absolute(output[0]*100)) + '%\t\t| ERR: ' + str(absErrX*100))
-	print('O: ' + str(100 -numpy.absolute(output[1]*100)) + '%\t\t| ERR: ' + str(absErrO*100))
+	print('X: ' + str(numpy.absolute(output[0])) + '\t\t| ERR: ' + str(absErrX*100))
+	# print('O: ' + str(100 -numpy.absolute(output[1]*100)) + '%\t\t| ERR: ' + str(absErrO*100))
+	print('O: ' + str(numpy.absolute(output[1])) + '\t\t| ERR: ' + str(absErrO*100))
 	print('Total Error: ' + str(error))
 	print('Time Taken: ' + str(tt))
 	print('-----------------------------------------------------------------')
