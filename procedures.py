@@ -7,7 +7,8 @@ class Procedures:
 	# @staticmethod
 	# Adds a padding of 2 all around the matrix
 	def padding(self, x):
-		x = numpy.pad(x,(2,2), 'constant')
+		# minimum means pad with ones
+		x = numpy.pad(x,(1,1), 'minimum')
 		return x
 
 	# @staticmethod
@@ -16,11 +17,8 @@ class Procedures:
 		lenf = len(filt)
 		z = self.padding(x)
 		s = z.shape
-		# size = len(z)
 		endx = s[0] - 2
-		endy = s[1] - 2
-		# print(z.shape)
-		# print(endx)
+		endy = s[1] - 2W
 		for i in range(endx):
 			conv = []
 			for j in range(endy):
@@ -31,14 +29,10 @@ class Procedures:
 						a = 0
 						# c += numpy.prod(z[i][j]*filt[k][l])
 						a = z[i][j]*filt[k][l]
-						# print(str(i) + " " + str(j))
 						c = numpy.sum([c, a])
 				con = float(c)/9
 				conv.append(con)
 			convoluted_array.append(conv)
-		# for i in range(end):
-		# 	for j in range(s):
-		# 		c+= 
 		return convoluted_array
 
 
@@ -60,8 +54,6 @@ class Procedures:
 		s = x.shape
 		endx = s[0] - 1
 		endy = s[1] - 1
-		# end = size-1
-		# maxy = []
 		pool=[]
 		for i in range(endx):
 			if (i%2) == 0:
@@ -69,7 +61,7 @@ class Procedures:
 				for j in range(endy):
 					if (j%2) == 0:
 						m = 0 
-						m = max(x[i][j],x[i][j+1],x[i+1][j+1],x[i+1][j+1])
+						m = max(x[i][j],x[i][j+1],x[i+1][j],x[i+1][j+1])
 						# k = int(i)/2
 						# pool[k].append(m)
 						pooler.append(m)
