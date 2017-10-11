@@ -7,8 +7,8 @@ class Procedures:
 	# @staticmethod
 	# Adds a padding of 2 all around the matrix
 	def padding(self, x):
-		# minimum means pad with ones
-		x = numpy.pad(x,(1,1), 'minimum')
+		# x = numpy.pad(x,(1,1), 'minimum')
+		x = numpy.pad(x,(1,1), 'linear_ramp',end_values=(-1))
 		return x
 
 	# @staticmethod
@@ -18,7 +18,7 @@ class Procedures:
 		z = self.padding(x)
 		s = z.shape
 		endx = s[0] - 2
-		endy = s[1] - 2W
+		endy = s[1] - 2
 		for i in range(endx):
 			conv = []
 			for j in range(endy):

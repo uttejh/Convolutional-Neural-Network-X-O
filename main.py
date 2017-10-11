@@ -32,7 +32,7 @@ def error_filter(filt, error):
 
 # Takes image as input and coverts it into required input of pixels (either 1 or -1)
 def ProcessImage(numb):
-	im = 'conv'+str(numb+1)+'.jpg'
+	im = './img3/'+str(numb)+'.jpg'
 	#B/W image , called as monogram not grayscale (i did not choose grayscale)
 	image = Image.open(im)
 	# Converts image into array of pixels
@@ -79,7 +79,7 @@ FilterFour = p.InitFilter()
 FilterFive = p.InitFilter()
 FilterSix = p.InitFilter()
 
-for iterat in range(1):
+for iterat in range(87):
 	# Calculates execution time
 	start = time.clock()
 
@@ -155,11 +155,14 @@ for iterat in range(1):
 		fan_out = (num_out_featuremaps*filter_height*filter_width)/pooling_size
 
 		w_bound = numpy.sqrt(6./(fan_in+fan_out))
+		
 		# Weights creates a matrix of numOfWeights*2 size
 		w_fc = numpy.random.uniform(-w_bound,w_bound,(numOfWeights,2))
 
 		# Initialising weight update array
 		deltaW_fc = numpy.zeros_like(w_fc)
+
+		# print(w_fc)
 
 
 	# Dot product b/w FullyConnected Layer and Weigths (1*n)(n*2) = (1*2)
@@ -179,7 +182,7 @@ for iterat in range(1):
 	dw = deltaW_fc*alpha
 	dw = dw.reshape(dw.size,1)
 	# updating the weight
-	w_fc = w_fc + dw
+	w_fc = w_fc - dw
 
 
 	FilterOne_update = numpy.dot(FilterOne, error_filter(FilterOne, error)) 
@@ -189,18 +192,20 @@ for iterat in range(1):
 	FilterFive_update = numpy.dot(FilterFive, error_filter(FilterFive, error))
 	FilterSix_update = numpy.dot(FilterSix, error_filter(FilterSix, error))
 
+	# print(FilterOne_update)
+
 	# updating the filter weights
-	FilterOne += FilterOne_update
-	FilterTwo += FilterTwo_update
-	FilterThree += FilterThree_update
-	FilterFour += FilterFour_update
-	FilterFive += FilterFive_update
-	FilterSix += FilterSix_update 
+	FilterOne -= FilterOne_update
+	FilterTwo -= FilterTwo_update
+	FilterThree -= FilterThree_update
+	FilterFour-= FilterFour_update
+	FilterFive -= FilterFive_update
+	FilterSix -= FilterSix_update 
 
 	tt = time.clock() - start
 
 	# Results
-	print("Prediction: \t\t| Error: \tfor Image: "+ans)
+	print("Prediction: \t\t| Error: \tfor Image: "+ans+ " img:"+str(iterat))
 	print('-----------------------------------------------------------------')
 	print('X: ' + str(numpy.absolute(output[0])) + '\t\t| ERR: ' + str(absErrX*100))
 	# print('O: ' + str(100 -numpy.absolute(output[1]*100)) + '%\t\t| ERR: ' + str(absErrO*100))
