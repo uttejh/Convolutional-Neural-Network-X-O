@@ -1,4 +1,5 @@
 # Convolutional-Neural-Network-X-O
+CNN from scratch using python and OpenCL to classify X and O
 
 # Acknowledgements
 <ul>
